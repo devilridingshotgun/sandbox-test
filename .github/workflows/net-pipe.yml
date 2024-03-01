@@ -31,26 +31,26 @@ jobs:
   
     - name: Make dirs
       run: |
-        mkdir -p /app/build
-        mkdir -p /app/publish
+        mkdir -p app/build
+        mkdir -p app/publish
     
     - name: Restore dependencies
       run: dotnet restore
       
     - name: Build
-      run: dotnet build -c Release -o /app/build --no-restore
+      run: dotnet build -c Release -o app/build --no-restore
       
     - name: publish
-      run: dotnet publish -c Release -o /app/publish
+      run: dotnet publish -c Release -o app/publish
 
     - name: Debug
-      run: ls -lah /app/publish
+      run: ls -lah app/publish
 
     - name: Upload result of publish
       uses: actions/upload-artifact@v4
       with:
         name: publish
-        path: /app/publish
+        path: app/publish
     
 
 
