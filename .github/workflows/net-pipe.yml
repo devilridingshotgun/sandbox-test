@@ -50,7 +50,8 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: publish
-        path: app/publish/
+        path: net-app/app/publish/
+        if-no-files-found: error
     
 
 
