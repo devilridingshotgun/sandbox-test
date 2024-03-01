@@ -14,10 +14,15 @@ jobs:
     
     defaults:
       run:
-        working-directory: app
+        working-directory: net-app
 
     steps:
     - uses: actions/checkout@v3
+
+    - name: Debug
+      run: |
+        pwd
+        ls -lah 
     
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
