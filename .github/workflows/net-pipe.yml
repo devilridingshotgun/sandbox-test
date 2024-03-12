@@ -11,19 +11,17 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-
   build-dotnet-app:
-
-    runs-on: ubuntu-latest
-    
+    runs-on: ubuntu-latest    
     defaults:
       run:
         working-directory: net-app
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Git clone
+      uses: actions/checkout@v3
 
-    - name: Debug
+    - name: Debug pwd and what's inside
       run: |
         pwd
         ls -lah 
@@ -47,7 +45,7 @@ jobs:
     - name: publish
       run: dotnet publish -c Release -o app/publish
 
-    - name: Debug
+    - name: Debug what's in publish folder
       run: ls -lah app/publish
 
     - name: Upload result of publish
@@ -57,8 +55,7 @@ jobs:
         path: net-app/app/publish/
         if-no-files-found: error
   
-  build-docker-image:
-    
+  build-docker-image:    
     runs-on: ubuntu-latest
 
     steps:
@@ -74,6 +71,11 @@ jobs:
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Debug pwd and what's inside
+        run: |
+          pwd
+          ls -lah 
       
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
