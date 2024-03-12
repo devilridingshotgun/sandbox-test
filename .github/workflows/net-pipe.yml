@@ -55,7 +55,8 @@ jobs:
         path: net-app/app/publish/
         if-no-files-found: error
   
-  build-docker-image:    
+  build-docker-image:
+    needs: build-dotnet-app
     runs-on: ubuntu-latest
 
     steps:
@@ -65,6 +66,7 @@ jobs:
       - name: Download artifacts in publish
         uses: actions/download-artifact@v4
         with:
+          name: publish
           path: net-app/app/publish/
 
       - name: Log in to the Container registry
